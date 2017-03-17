@@ -6,7 +6,10 @@ import java.util.Queue;
 public class RedBlackTree<T extends Comparable<? super T> > 
 {
 	enum ChildType{ left, right }
-	private RBNode<T> root;  // Racine de l'arbre
+	/**
+	 * racine de l'arbre
+	 */
+	private RBNode<T> root; 
    
    public RedBlackTree(){ 
       root = null;
@@ -34,12 +37,23 @@ public class RedBlackTree<T extends Comparable<? super T> >
       else
          System.out.print("null\n");
    }
-/*
- * recherche d'une clé
- */
+
+
+   /**
+    * recherche d'une clé
+    * @param key
+    * @return
+    */
    public T find(int key){
       return find(root, key);
    }
+   
+   /**
+    * Methode récursive de recherche d'une clé à partir d'un noeud
+    * @param current
+    * @param key
+    * @return
+    */
    private T find(RBNode<T> current, int key)
    {
 	   if (current.value != null)
@@ -54,13 +68,21 @@ public class RedBlackTree<T extends Comparable<? super T> >
 	   else
 		   return null;
 	 }
-  /*
-   * insertion d'une valeur 
-   */
+
+
+   /**
+    * Methode permettant l'insertion d'une valeur
+    * @param val
+    */
    public void insert(T val){
       insertNode( new RBNode<T>( val ) );
    }
    
+   
+   /**
+    * Methode récursive permettant l'insertion d'un noeud
+    * @param newNode
+    */
    private void insertNode( RBNode<T> newNode ){ 
       if (root == null)  // Si arbre vide
          root = newNode;
@@ -192,6 +214,10 @@ public class RedBlackTree<T extends Comparable<? super T> >
 	   }
    }
    
+   /**
+    * Methode permettant de faire une rotation vers la gauche sur le noeud P
+    * @param P
+    */
    private void rotateLeft( RBNode<T> P )
    {
 		RBNode<T> X = P.rightChild;
@@ -204,6 +230,10 @@ public class RedBlackTree<T extends Comparable<? super T> >
 		X.parent.leftChild	= X;
    }
    
+   /**
+    * Methode permettant de faire une rotation vers la droite sur le noeud P
+    * @param P
+    */
    private void rotateRight( RBNode<T> P)
    {
 		RBNode<T> X = P.leftChild;
@@ -216,6 +246,9 @@ public class RedBlackTree<T extends Comparable<? super T> >
 		X.parent.rightChild	= X;
    }
 
+   /**
+    * Methode permettant d'afficher l'arbre en pre ordre
+    */
    public void printTreePreOrder()
    {
       if(root == null)
@@ -226,8 +259,11 @@ public class RedBlackTree<T extends Comparable<? super T> >
          printTreePreOrder( root );
          System.out.println( " ]");
       }
-      return;
    }
+   
+   /**
+    * Methode permettant d'afficher l'abre en post ordre
+    */
    public void printTreePostOrder()
    {
       if(root == null)
@@ -238,8 +274,11 @@ public class RedBlackTree<T extends Comparable<? super T> >
          printTreePostOrder( root );
          System.out.println( " ]");
       }
-      return;
    }
+   
+   /**
+    * Methode permettant d'afficher l'arbre de façon ascendante.
+    */
    public void printTreeAscendingOrder()
    {
       if(root == null)
@@ -250,9 +289,11 @@ public class RedBlackTree<T extends Comparable<? super T> >
          printTreeAscendingOrder( root );
          System.out.println( " ]");
       }
-      return;
    }
    
+   /**
+    * Methode permettant d'afficher l'ordre de façon descendant
+    */
    public void printTreeDescendingOrder()
    {
       if(root == null)
@@ -263,50 +304,101 @@ public class RedBlackTree<T extends Comparable<? super T> >
          printTreeDescendingOrder( root );
          System.out.println( " ]");
       }
-      return;
    }
 
-   
+   /**
+    * Methode récursive permettant d'afficher l'arbre en pre ordre.
+    * @param P
+    */
    private void printTreePreOrder( RBNode<T> P )
    {
-     // A MODIFIER/COMPLETER
-	 //pour ne pas afficher la virgule apres le dernier element
-   }
-   private void printTreePostOrder( RBNode<T> P )
-   {
-      // A MODIFIER/COMPLETER
-   }
-     
-   private void printTreeAscendingOrder( RBNode<T> P )
-   {
-      // A MODIFIER/COMPLETER
-	   
-   }
-  
-   private void printTreeDescendingOrder( RBNode<T> P )
-   {
-      // A MODIFIER/COMPLETER
-	   
+	   if(P != root)
+	         System.out.print(" ; ");
+	      System.out.print("(" + P.value + " , " + (P.isBlack() ? "black" : "red") + ")");
+	      if(P.leftChild != null && P.leftChild.value != null)
+	         printTreePreOrder(P.leftChild);
+	      if(P.rightChild != null && P.rightChild.value != null)
+	         printTreePreOrder(P.rightChild);
    }
    
+   /**
+    * Méthode récursive permettant d'afficher en post ordre
+    * @param P
+    */
+   private void printTreePostOrder( RBNode<T> P )
+   {
+	   if(P.leftChild != null && P.leftChild.value != null)
+		   printTreePostOrder(P.leftChild);
+	   if(P.rightChild != null && P.rightChild.value != null)
+		   printTreePostOrder(P.rightChild);
+	   System.out.print("(" + P.value + " , " + (P.isBlack() ? "black" : "red") + ")");
+	   if(P != root)
+		   System.out.print(" ; ");
+   }
+     
+   /**
+    * Methode récursive permettant d'afficher en ordre croissant
+    * @param P
+    */
+   private void printTreeAscendingOrder( RBNode<T> P )
+   {
+	   RBNode<T> F = root;
+	   if(P.leftChild != null && P.leftChild.value != null)
+		   printTreeAscendingOrder(P.leftChild);
+	   System.out.print("(" + P.value + " , " + (P.isBlack() ? "black" : "red") + ")");
+	   while (F.rightChild.value != null) // recupere l'element le plus à droite (donc le plus grand()
+		   F = F.rightChild;
+	   if (P != F)
+		   System.out.print(" ; ");
+	   if(P.rightChild != null && P.rightChild.value != null)
+		   printTreeAscendingOrder(P.rightChild);
+
+   }
+  
+   /**
+    * Methode recursive permettant d'afficher en ordre décroissant
+    * @param P
+    */
+   private void printTreeDescendingOrder( RBNode<T> P )
+   {
+	   	RBNode<T> F = root;
+	   	if(P.rightChild != null && P.rightChild.value != null)
+	   		printTreeDescendingOrder(P.rightChild);
+	   	System.out.print("(" + P.value + " , " + (P.isBlack() ? "black" : "red") + ")");
+	   	while (F.leftChild.value != null) // recupere l'element le plus à gauche (donc le plus petit)
+	   		F = F.leftChild;
+	   	if (P != F)
+	   		System.out.print(" ; ");
+	   	if(P.leftChild != null && P.leftChild.value != null)
+	   		printTreeDescendingOrder(P.leftChild);
+   }
+   
+   /**
+    * Méthode permettant d'afficher l'arbre par niveau.
+    */
    public void printTreeLevelOrder()
    {
-      if(root == null)
-         System.out.println( "Empty tree" );
-      else
-      {
-         System.out.print( "LevelOrdre [ ");
-         
-         Queue<RBNode<T>> q = new LinkedList<RBNode<T>>();
-         q.add(root);
-         
-         // A COMPLETER
-		 
-		 
-         System.out.println( " ]");
-      }
-      return;
-   }
+	   if(root == null)
+		   System.out.println( "Empty tree" );
+	   else
+	   {
+		   System.out.print( "LevelOrdre [ ");
+		   Queue<RBNode<T>> q = new LinkedList<RBNode<T>>();
+		   q.add(root);
+		   while(!q.isEmpty())
+		   {
+			   RBNode<T> P = q.poll(); // recupere puis remove l'element. Remplace pop(), qui n'existe pas dans la class Queue, comme indiqué dans le tableau de la javadoc.
+			   if(P != root)
+				   System.out.print(" ; ");
+			   System.out.print("(" + P.value + " , " + (P.isBlack() ? "black" : "red") + ")");
+			   if(P.leftChild != null && P.leftChild.value != null)
+				   q.add(P.leftChild);
+			   if(P.rightChild != null && P.rightChild.value != null)
+				   q.add(P.rightChild);
+		   }		 
+		   System.out.println( " ]");
+	   }
+   	}
    
    private static class RBNode<T extends Comparable<? super T> > 
    {

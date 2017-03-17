@@ -33,13 +33,13 @@ public class RedBlackTreeMain
         System.out.println("Noeud introuvable.");
             
       System.out.println();
-     /* 
+     
       // Affichage pre-ordre et post-ordre
       tree.printTreePreOrder();
       tree.printTreePostOrder();
       tree.printTreeAscendingOrder();
       tree.printTreeDescendingOrder();
       // Affichage par niveaux
-      tree.printTreeLevelOrder(); */
+      tree.printTreeLevelOrder(); 
    }
 }
