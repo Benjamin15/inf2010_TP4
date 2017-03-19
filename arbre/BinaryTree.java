@@ -16,15 +16,16 @@ public class BinaryTree<AnyType> {
 	 * Methode permettant d'insérer un élément dans l'arbre.
 	 * @param elem
 	 */
-	public void insert (AnyType elem) {
-	        if(root==null){
-	        	this.root= new Node<AnyType>(elem);
-	        }else	
-	        	insert(root, elem);      
+	public void insert (AnyType elem) 
+	{
+		if(root==null){
+			this.root= new Node<AnyType>(elem);
+		}else	
+			insert(root, elem);      
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Methode récursive permettant d'insérer un élément dans un noeud de l'arbre.
 	 * Si un element a une valeur qui est déjà présente dans l'arbre, on ne l'y insére pas.
@@ -48,7 +49,7 @@ public class BinaryTree<AnyType> {
 				node.right = new Node<AnyType>(elem);
 		}
 	}
-    
+
 	/**
 	 * Methode permettant de retourner la hauteur de l'arbre
 	 * @return
@@ -56,7 +57,7 @@ public class BinaryTree<AnyType> {
 	public int getHauteur () {
 		return this.getHauteur(this.root);
 	}
- 
+
 	/**
 	 * Methode permettant l'affichage pre ordre de l'arbre
 	 * @return
@@ -64,7 +65,7 @@ public class BinaryTree<AnyType> {
 	public String printPrefixe() {
 		return "{ " + this.printPrefixe(this.root) + " }";
 	}
-	
+
 	/**
 	 * Methode permettant l'affichage en ordre de l'arbre.
 	 * @return
@@ -72,7 +73,7 @@ public class BinaryTree<AnyType> {
 	public String printInFixe() {
 		return "{ " + this.printInfixe(this.root) + " }";
 	}
-	
+
 	/**
 	 * Methode permettant l'affichage post ordre de l'arbre
 	 * @return
@@ -80,7 +81,7 @@ public class BinaryTree<AnyType> {
 	public String printPostFixe() {
 		return "{ " + this.printPostfixe(this.root) + " }";
 	}
-	
+
 	/**
 	 * Methode permettant d'obtenir la hauteur depuis un noeud. Inspiré des notes de cours de inf2010 cours 5.
 	 * @param tree
@@ -93,7 +94,7 @@ public class BinaryTree<AnyType> {
 		else
 			return 1 + Math.max(getHauteur(tree.left), getHauteur(tree.right));
 	}	
-	
+
 	/**
 	 * Methode récursive permettant de retourner un String contenant l'arbre en préordre en partant d'un noeud 
 	 * Preordre : (Noeud Gauche Droite)
@@ -123,7 +124,7 @@ public class BinaryTree<AnyType> {
 		else 
 			return printInfixe(node.left) + node.val + printInfixe(node.right) ;
 	}
-	
+
 	/**
 	 * Methode récursive permettant de retourner un String contenant l'arbre en post-ordre en partant d'un noeud 
 	 * post-odre : (Gauche Droite Noeud)
@@ -138,7 +139,7 @@ public class BinaryTree<AnyType> {
 		else 
 			return printPostfixe(node.left) + printPostfixe(node.right) + node.val;
 	}
-	
+
 	/**
 	 * 
 	 * Class Node qui permet de représenter chaque element de notre arbre binaire.
@@ -151,13 +152,13 @@ public class BinaryTree<AnyType> {
 		 * valeur du neoud
 		 */
 		AnyType val;
-		
+
 		/**
 		 * fils de droite 
 		 */
 		@SuppressWarnings("rawtypes")
 		Node right;
-		
+
 		/**
 		 * fils de gauche
 		 */
